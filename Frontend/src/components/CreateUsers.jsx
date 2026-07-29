@@ -23,33 +23,59 @@ function CreateUsers() {
     };
 
   return (
-    <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
-        <div className="w-70 bg-white rounded p-3">
-            <h2>Create User</h2>
-            <form className='form' onSubmit={handleSubmit}>
-                <div className="mb-2">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter name" required 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    />
-                </div>
-                <div className="mb-2">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" className="form-control" id="email" placeholder="Enter email" required 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div className="mb-2">
-                    <label htmlFor="age">Age</label>
-                    <input type="number" className="form-control" id="age" placeholder="Enter age" required 
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="btn btn-success">Submit</button>
-            </form>
+    <div className="page-center">
+        <div className="page-card page-card--compact">
+            <div className="page-hero">
+                <p className="eyebrow">New Record</p>
+                <h1 className="page-title">Create User</h1>
+                <p className="page-subtitle">
+                    Add a fresh record to the database with a clean, focused form.
+                </p>
+            </div>
+
+            <div className="form-panel">
+                <form className="form-card" onSubmit={handleSubmit}>
+                    <div className="form-grid">
+                        <div className="field">
+                            <label htmlFor="name">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter full name"
+                                required
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter email address"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="field field--full">
+                            <label htmlFor="age">Age</label>
+                            <input
+                                type="number"
+                                id="age"
+                                placeholder="Enter age"
+                                required
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-actions">
+                        <button type="submit" className="action-button">Save User</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
   )
