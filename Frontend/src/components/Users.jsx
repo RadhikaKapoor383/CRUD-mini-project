@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom'
 function Users() {
     const [users, setUsers] = useState([])
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/users/${id}`);
+            setUsers((currentUsers) => currentUsers.filter((user) => user._id !== id));
+        } catch (error) {
+            console.error('There was an error deleting the user!', error);
+        }
+    }
+
     useEffect(() => {
         axios.get('http://localhost:8000/users')
             .then(response => {
@@ -35,8 +44,14 @@ function Users() {
                             <td>{user.email}</td>
                             <td>{user.age}</td>
                             <td>
-                                <Link to="/update" className="btn btn-sm btn-primary">Edit</Link>
-                                <button className="btn btn-sm btn-danger">Delete</button>
+                                <Link to={`/update/${user._id}`} className="btn btn-sm btn-primary">Edit</Link>
+                                <button
+                                    type="button"
+                                    className="btn btn-sm btn-danger"
+                                    onClick={() => handleDelete(user._id)}
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}
