@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 function Users() {
-    const [ users, setUsers ] = React.useState([{
-        Name: "John Doe",
-        Email: "john.doe@example.com",
-        Age: 30
-    }])
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/users')
+            .then(response => {
+                setUsers(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the users!', error);
+            });
+    }, []);
+
   return (
     <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
         <div className="w-60 bg-white rounded p-3">
@@ -23,9 +31,9 @@ function Users() {
                 <tbody>
                     {users.map((user, index) => (
                         <tr key={index}>
-                            <td>{user.Name}</td>
-                            <td>{user.Email}</td>
-                            <td>{user.Age}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>{user.age}</td>
                             <td>
                                 <Link to="/update" className="btn btn-sm btn-primary">Edit</Link>
                                 <button className="btn btn-sm btn-danger">Delete</button>

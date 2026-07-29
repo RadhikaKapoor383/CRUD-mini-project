@@ -1,25 +1,25 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateUsers() {
     const [ name, setName] = useState('');
     const [ email, setEmail] = useState('');
     const [ age, setAge] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:8000/create', {
-            name,
-            email,
-            age,
-        })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch(error => {
+        try {
+            await axios.post('http://localhost:8000/create', {
+                name,
+                email,
+                age: Number(age),
+            });
+            navigate('/');
+        } catch (error) {
             console.error('There was an error creating the user!', error);
-        });
+        }
     };
 
   return (
