@@ -1,22 +1,52 @@
-import React from 'react'
+import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
 function CreateUsers() {
+    const [ name, setName] = useState('');
+    const [ email, setEmail] = useState('');
+    const [ age, setAge] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await axios.post('http://localhost:8000/create', {
+            name,
+            email,
+            age,
+        })
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('There was an error creating the user!', error);
+        });
+    };
+
   return (
     <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
         <div className="w-70 bg-white rounded p-3">
             <h2>Create User</h2>
-            <form>
+            <form className='form' onSubmit={handleSubmit}>
                 <div className="mb-2">
                     <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" id="name" placeholder="Enter name" required />
+                    <input type="text" className="form-control" id="name" placeholder="Enter name" required 
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    />
                 </div>
                 <div className="mb-2">
                     <label htmlFor="email">Email</label>
-                    <input type="email" className="form-control" id="email" placeholder="Enter email" required />
+                    <input type="email" className="form-control" id="email" placeholder="Enter email" required 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className="mb-2">
                     <label htmlFor="age">Age</label>
-                    <input type="number" className="form-control" id="age" placeholder="Enter age" required />
+                    <input type="number" className="form-control" id="age" placeholder="Enter age" required 
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    />
                 </div>
                 <button type="submit" className="btn btn-success">Submit</button>
             </form>
